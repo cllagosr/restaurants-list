@@ -24,5 +24,9 @@ module.exports = {
     document: true,
     window: true,
     process: true,
+  },
+  rules: {
+    "array-callback-return": "off",
+    "import/group-exports": 0,
   }
 };
