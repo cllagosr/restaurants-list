@@ -4,7 +4,7 @@ import * as S from "./card.styled";
 
 const Card = ({ title, imageUrl, body }) => {
   return (
-    <S.Card>
+    <S.Card data-testid="card">
       <S.Background url={imageUrl} />
       <S.Content>
         <S.Title>{title}</S.Title>
