@@ -9,7 +9,7 @@ const RestaurantsList = ({ restaurants }) => {
         key={restaurant.id}
         title={restaurant.name}
         imageUrl={restaurant.imageUrl}
-        body={restaurant.body}
+        body={restaurant.address}
       />
     );
   });
