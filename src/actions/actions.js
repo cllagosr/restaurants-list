@@ -16,6 +16,13 @@ export const requestRestaurants = (restaurantType = RESTAURANT_TYPES.all) => {
   };
 };
 
+export const setErrorRestaurants = (restaurantType = RESTAURANT_TYPES.all) => {
+  return {
+    type: types.SET_ERROR_RESTAURANTS,
+    restaurantType,
+  };
+};
+
 export const receiveRestaurants = (
   restaurantType = RESTAURANT_TYPES.all,
   items = []
@@ -27,16 +34,19 @@ export const receiveRestaurants = (
   };
 };
 
+// I decided to fetch restaurants only the first time the user selects a type
 export const fetchRestaurantsIfNeeded = (restaurantType) => {
   return (dispatch, getState) => {
     const restaurants = getState().restaurantsByType[restaurantType];
-    if (!restaurants) {
+    if (!restaurants || restaurants.failed) {
       dispatch(requestRestaurants(restaurantType));
-      return fetchRestaurants("Berlin", restaurantType).then(
-        (fetchedRestaurants) => {
+      return fetchRestaurants("Berlin", restaurantType)
+        .then((fetchedRestaurants) => {
           dispatch(receiveRestaurants(restaurantType, fetchedRestaurants));
-        }
-      );
+        })
+        .catch(() => {
+          dispatch(setErrorRestaurants(restaurantType));
+        });
     }
   };
 };

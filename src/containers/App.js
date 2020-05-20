@@ -4,14 +4,16 @@ import App from "../components/App/App";
 
 const mapStateToProps = (state) => {
   const { selectedType, restaurantsByType } = state;
-  const { isFetching, items } = restaurantsByType[selectedType] || {
+  const { isFetching, items, failed } = restaurantsByType[selectedType] || {
     isFetching: true,
+    failed: false,
     items: [],
   };
 
   return {
     selectedType,
     items,
+    failed,
     isFetching,
   };
 };

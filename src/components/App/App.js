@@ -12,7 +12,8 @@ const App = (props) => {
     props.fetchRestaurantsIfNeeded(props.selectedType);
   }, []);
 
-  const onChange = () => {
+  // eslint-disable-next-line no-shadow
+  const onChange = (event) => {
     props.selectType(event.target.value);
     props.fetchRestaurantsIfNeeded(event.target.value);
   };
@@ -31,6 +32,7 @@ const App = (props) => {
         <Select onChange={onChange} options={options} />
         <S.App>
           {props.isFetching && <h3>Loading...</h3>}
+          {props.failed && <h3>Oops! something went wrong</h3>}
           <RestaurantsList restaurants={props.items} />
         </S.App>
       </S.Wrapper>
@@ -40,6 +42,7 @@ const App = (props) => {
 
 App.propTypes = {
   fetchRestaurantsIfNeeded: PropTypes.func.isRequired,
+  failed: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   items: PropTypes.array.isRequired,
   selectType: PropTypes.func.isRequired,

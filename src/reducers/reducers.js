@@ -3,6 +3,7 @@ import {
   RECEIVE_RESTAURANTS,
   REQUEST_RESTAURANTS,
   SELECT_TYPE,
+  SET_ERROR_RESTAURANTS,
 } from "../constants/ActionTypes";
 import { RESTAURANT_TYPES } from "../constants/Restaurants";
 
@@ -17,19 +18,23 @@ const selectedType = (state = RESTAURANT_TYPES.all, action) => {
 
 const restaurants = (
   state = {
+    failed: false,
     isFetching: false,
     items: [],
   },
   action
 ) => {
   switch (action.type) {
+    case SET_ERROR_RESTAURANTS:
+      return { ...state, failed: true, isFetching: false };
     case REQUEST_RESTAURANTS:
-      return { ...state, isFetching: true };
+      return { ...state, failed: false, isFetching: true };
     case RECEIVE_RESTAURANTS:
       return {
         ...state,
         isFetching: false,
         items: action.items,
+        failed: false,
       };
     default:
       return state;
@@ -38,6 +43,7 @@ const restaurants = (
 
 const restaurantsByType = (state = {}, action) => {
   switch (action.type) {
+    case SET_ERROR_RESTAURANTS:
     case REQUEST_RESTAURANTS:
     case RECEIVE_RESTAURANTS:
       return {
