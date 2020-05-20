@@ -1,5 +1,35 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## The problem
+
+You can see the description of this challenge [here](https://www.notion.so/Coding-Challenge-Web-Application-Development-b3e2fb1ec82446c29257a67c325714dc).
+
+## The solution
+
+* I decided to use Redux to manage the state. If the app is going to grow, I think this is one of the cleanest ways to do it. Currently the state that describes the app has the following structure:
+```
+restaurantsByType: {
+    pizza: {
+        items: [...]
+    }
+    isFetching: ...,
+    failed: ...
+},
+selectedType: 'pizza'
+```
+
+When the user changes the filter, `selectedType` and `restaurantsByType` are updated with the items from the API and it's corresponding status (isFetching and failed). I'm keeping every list of restaurants in memory so they're not fetched every time the user returns to a previous value of the filter, but this can easyly be changed.
+
+* I tried to design the components of the app in a way that they can be easyly reused in the future.
+
+* Eslint rules are very strict, almost anoying, I would fix that in the future but for now it allows me to have cleanner code.
+
+* I wrote unit tests for the App component, it covers most of the cases of this project. I would totally add more tests for other components but I ran out of time.
+
+## How to run
+
+I used [cors-anywhere](https://github.com/Rob--W/cors-anywhere), run the server on port 8080 before running the project.
+
 ## Available Scripts
 
 In the project directory, you can run:
